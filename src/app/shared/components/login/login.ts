@@ -8,5 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.css',
 })
 export class Login {
+  hidePassword: boolean = true;
 
+  toggleVisibility(){
+    this.hidePassword = !this.hidePassword;
+  }
 }

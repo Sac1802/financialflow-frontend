@@ -17,9 +17,14 @@
                 <p>Password</p>
                 <div class="input-group">
                     <mat-icon class="input-icon">lock</mat-icon>
-                    <input type="password" id="password" class="input-field" placeholder="•••••••••••">
-                    <mat-icon class="toggle-password" onclick="toggleVisibility()">visibility</mat-icon>
+
+                    <input [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
+
+                    <mat-icon class="toggle-password" (click)="toggleVisibility()">
+                        {{ hidePassword ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
                 </div>
+
             </div>
             <div class="options">
                 <input type="checkbox" name="Remember me" id="">
