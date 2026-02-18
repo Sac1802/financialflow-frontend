@@ -1,0 +1,51 @@
+<form action="sudmit" class=" counter">
+
+    <div class="forum">
+        <div class="container">
+            <div class="logo">
+                <mat-icon class="wallet-icon">wallet</mat-icon>
+                <h1 class="name-page">Financial Flow</h1>
+                <p class="text-login">Join and start managing your finances</p>
+            </div>
+            <div class="inputs">
+                <p>Name</p>
+                <div class="input-group">
+                    <mat-icon class="input-icon">person</mat-icon>
+                    <input type="text" class="input-field" placeholder="Joe Doe">
+                </div>
+                <p>Email</p>
+                <div class="input-group">
+                    <mat-icon class="input-icon">email</mat-icon>
+                    <input type="email" class="input-field" placeholder="example@email.com">
+                </div>
+
+                <p>Password</p>
+                <div class="input-group">
+                    <mat-icon class="input-icon">lock</mat-icon>
+
+                    <input [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
+
+                    <mat-icon class="toggle-password" (click)="toggleVisibility()">
+                        {{ hidePassword ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                </div>
+
+                <p>Confirm password</p>
+                <div class="input-group">
+                    <mat-icon class="input-icon">lock</mat-icon>
+
+                    <input [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
+
+                    <mat-icon class="toggle-password" (click)="toggleVisibility()">
+                        {{ hidePassword ? 'visibility' : 'visibility_off' }}
+                    </mat-icon>
+                </div>
+            </div>
+            <button class="button-login">Create Account</button>
+            <div class="login-footer">
+                <p>Do you already have an account?</p>
+                <a href="login" class="login-link">Login</a>
+            </div>
+        </div>
+    </div>
+</form>
