@@ -1,4 +1,4 @@
-<form action="sudmid" class="counter">
+<form class="counter" (submit)="onLogin($event, emailInput.value, passwordInput.value)">
 
     <div class="forum">
         <div class="container">
@@ -11,14 +11,14 @@
                 <p>Email</p>
                 <div class="input-group">
                     <mat-icon class="input-icon">email</mat-icon>
-                    <input type="email" class="input-field" placeholder="example@email.com">
+                    <input #emailInput type="email" class="input-field" placeholder="example@email.com">
                 </div>
 
                 <p>Password</p>
                 <div class="input-group">
                     <mat-icon class="input-icon">lock</mat-icon>
 
-                    <input [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
+                    <input #passwordInput [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
 
                     <mat-icon class="toggle-password" (click)="toggleVisibility()">
                         {{ hidePassword ? 'visibility' : 'visibility_off' }}
@@ -31,7 +31,7 @@
                 <p>Remember me</p>
                 <a href="" class="forgot-password">Forgot your password?</a>
             </div>
-            <button class="button-login">Login</button>
+            <button type="submit" class="button-login">Login</button>
             <div class="resgistry-link">
                 <p>Don't you have an account?</p>
                 <a href="register" class="registry-link">Registry</a>
