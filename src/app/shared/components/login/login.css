@@ -187,3 +187,9 @@
 .registry-link:hover {
   text-decoration: underline;
 }
+.error-text {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
