@@ -1,4 +1,4 @@
-<form class="counter" (submit)="onLogin($event, emailInput.value, passwordInput.value)">
+<form class="counter" [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
     <div class="forum">
         <div class="container">
@@ -11,19 +11,33 @@
                 <p>Email</p>
                 <div class="input-group">
                     <mat-icon class="input-icon">email</mat-icon>
-                    <input #emailInput type="email" class="input-field" placeholder="example@email.com">
+                    <input  
+                      type="email" 
+                      class="input-field" 
+                      placeholder="example@email.com"
+                      formControlName="email">
                 </div>
+                @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                  <small class="error-text">Email is required and must be valid</small>
+                }
 
                 <p>Password</p>
                 <div class="input-group">
                     <mat-icon class="input-icon">lock</mat-icon>
 
-                    <input #passwordInput [type]="hidePassword ? 'password' : 'text'" class="input-field" placeholder="•••••••••••">
+                    <input
+                      [type]="hidePassword ? 'password' : 'text'" 
+                      class="input-field" 
+                      placeholder="•••••••••••"
+                      formControlName="password">
 
                     <mat-icon class="toggle-password" (click)="toggleVisibility()">
                         {{ hidePassword ? 'visibility' : 'visibility_off' }}
                     </mat-icon>
                 </div>
+                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                  <small class="error-text">Password must be at least 6 characters</small>
+                }
 
             </div>
             <div class="options">
