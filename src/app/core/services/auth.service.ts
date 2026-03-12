@@ -20,19 +20,25 @@ export class AuthService {
   }
 
   login(data: userLogin) {
-    return this.http.post<{ access_token: string }>(environment.apiUrl, data).pipe(
-      tap((res) => {
-        localStorage.setItem(this.TOKEN, res.access_token);
-        this.isLoggedIn.set(true);
-      }),
-      catchError((err) => {
-        console.error('Error login', err);
-        return throwError(() => err);
-      }),
-    );
+    return this.http
+      .post(
+        `${environment.apiUrl}/api/auth/login`,
+        data,
+        { responseType: 'text' },
+      )
+      .pipe(
+        tap((token) => {
+          localStorage.setItem(this.TOKEN, token);
+          this.isLoggedIn.set(true);
+        }),
+        catchError((err) => {
+          console.error('Error login', err);
+          return throwError(() => err);
+        }),
+      );
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem(this.TOKEN);
     this.isLoggedIn.set(false);
   }
