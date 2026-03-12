@@ -33,17 +33,24 @@ export class Register {
 
   onRegister(): void{
     if(this.registerForm.invalid){
-      this,this.registerForm.markAllAsTouched();
+      this.registerForm.markAllAsTouched();
       return;
     }
 
-    const {name, email, password, confirmPassword} = this.registerForm.value;
+    const {name, email, password, confirmPassword} = this.registerForm.value as {
+      name: string;
+      email: string;
+      password: string;
+      confirmPassword: string;
+    };
 
     if(password !== confirmPassword){
-      confirmPassword.set(false);
+      this.correctPasswors.set(false);
       return;
     }
 
+    this.correctPasswors.set(true);
+    console.log({name, email, password});
     this.service.createUser({name, email, password}).subscribe({
       next: () => {
         console.log('User Created');

@@ -14,7 +14,7 @@ export class userCreateSercice {
   createdSuccess = signal<boolean>(false);
 
   createUser(data: userRegister) {
-    return this.http.post<string>(environment.apiUrl, data).pipe(
+    return this.http.post<string>(`${environment.apiUrl}/api/user`, data).pipe(
       tap((res) => {
         this.createdSuccess.set(true);
         this.router.navigate(['login']);
