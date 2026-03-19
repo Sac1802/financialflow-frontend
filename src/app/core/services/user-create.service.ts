@@ -13,7 +13,7 @@ export class userCreateSercice {
   private router = inject(Router);
   createdSuccess = signal<boolean>(false);
 
-  createUser(data: userRegister) {
+  createUser(data: userRegister): Observable<string> {
     return this.http.post<string>(`${environment.apiUrl}/api/user`, data).pipe(
       tap((res) => {
         this.createdSuccess.set(true);
