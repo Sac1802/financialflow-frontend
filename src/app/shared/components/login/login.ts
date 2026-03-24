@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../core/services/auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   imports: [
@@ -21,6 +21,7 @@ export class Login {
   loginForm: FormGroup;
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   constructor() {
     this.loginForm = this.fb.group({
@@ -44,6 +45,7 @@ export class Login {
     this.authService.login({ email, password }).subscribe({
       next: (data) => {
         console.log('Login successful');
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Login failed', err);

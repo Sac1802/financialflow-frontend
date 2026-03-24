@@ -1,0 +1,12 @@
+.dashboard-chart {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-chart > * {
+  flex: 1;
+  min-width: 400px;
+  height: 400px;
+}

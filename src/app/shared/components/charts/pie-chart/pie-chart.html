@@ -1,1 +1,9 @@
-<p>pie-chart works!</p>
+@if (listCategories().length > 0) {
+  <canvas baseChart
+      [data]="pieChartData"
+      [options]="pieChartOption"
+      [type]="pieChartType">
+  </canvas>
+} @else {
+  <p>Cargando categorías...</p>
+}

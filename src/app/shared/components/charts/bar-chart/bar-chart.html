@@ -1,1 +1,9 @@
-<p>bar-chart works!</p>
+@if (listTransactions().length > 0) {
+  <canvas baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="barChartType">
+  </canvas>
+} @else {
+  <p>Cargando transacciones...</p>
+}
