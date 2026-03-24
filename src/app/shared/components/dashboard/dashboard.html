@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<header class="header-container">
+    <nav class="menu">
+        <div class="menu-logo">
+            <mat-icon class="wallet-icon">wallet</mat-icon>
+            <h1 class="meni-title">Finanzas Personales</h1>
+        </div>
+        <div class="button-transaction-add">
+            <button mat-icon-button>
+                <mat-icon>add</mat-icon>
+                Nueva Transacción
+            </button>
+        </div>
+        <div class="menu-user">
+            <mat-icon class="user-icon">account_circle</mat-icon>
+        </div>
+
+
+    </nav>
+</header>
+
+<main class="main-container">
+    <div class="dasbvoard-chart">
+        <app-bar-chart></app-bar-chart>
+        <app-pie-chart></app-pie-chart>
+    </div>
+</main>
+
