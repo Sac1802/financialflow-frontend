@@ -11,7 +11,7 @@ export class CategoryService {
   private http = inject(HttpClient);
 
   getCategoryAmounts(): Observable<CategoryAmounts[]> {
-    return this.http.get<CategoryAmounts[]>(`${environment.apiUrl}/api/category/amount`).pipe(
+    return this.http.get<CategoryAmounts[]>(`${environment.apiUrl}/api/categories/amount`).pipe(
       catchError((error) => {
         console.error('Error get the category amounts', error);
         return throwError(() => error);

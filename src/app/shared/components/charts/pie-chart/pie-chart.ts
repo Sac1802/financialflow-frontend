@@ -14,7 +14,7 @@ export class PieChart implements OnInit {
   private service = inject(CategoryService);
   listCategories = signal<CategoryAmounts[]>([]);
 
-  public pieCahetType: ChartType = 'pie';
+  public pieChartType: ChartType = 'pie';
   public pieChartOption: ChartConfiguration['options'] = {
     responsive: true,
   };
@@ -32,7 +32,8 @@ export class PieChart implements OnInit {
     this.service.getCategoryAmounts().subscribe({
       next: (data) => {
         this.listCategories.set(data);
-        console.log(this.listCategories());
+        this.processDataForChart();
+        console.log(data);
       },
       error: (error) => {
         console.error('Error al obtener categorias', error);
@@ -42,10 +43,13 @@ export class PieChart implements OnInit {
 
   public processDataForChart(): void {
     this.pieChartData = {
-      labels: this.listCategories().map((item) => item.namenameCategory),
+      labels: this.listCategories().map((item) => item.nameCategory),
       datasets: [
         {
-          data: this.listCategories().map((item) => item.amount),
+          data: this.listCategories().map((item) => item.totalAmount),
+          backgroundColor: [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'
+          ]
         },
       ],
     };
