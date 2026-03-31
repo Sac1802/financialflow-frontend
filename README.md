@@ -1,59 +1,104 @@
-# FinancialflowFront
+# FinancialFlow Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+A modern Angular-based financial management dashboard for tracking transactions, visualizing spending patterns, and managing personal finances.
 
-## Development server
+## Technologies
 
-To start a local development server, run:
+- **Framework**: [Angular](https://angular.io/) v21.0.0
+- **Language**: [TypeScript](https://www.typescriptlang.org/) v5.9.2
+- **UI Library**: [Angular Material](https://material.angular.io/) v21.1.3
+- **Charts**: [Chart.js](https://www.chartjs.org/) v4.5.1 + [ng2-charts](https://valor-software.com/ng2-charts/) v10.0.0
+- **Testing**: [Vitest](https://vitest.dev/) v4.0.8 with jsdom
+- **Package Manager**: npm v11.7.0
 
+## Architecture
+
+The project follows a **feature-based modular architecture** with clear separation of concerns:
+
+```
+src/app/
+├── core/                    # Singleton services, guards, interceptors, interfaces
+│   ├── guards/              # Route guards for authentication
+│   ├── interceptors/        # HTTP interceptors
+│   ├── interfaces/          # TypeScript interfaces
+│   └── services/            # API services (auth, transactions, categories, users)
+├── features/                # Feature modules (lazy-loaded)
+├── layout/                  # Layout components
+├── shared/                  # Reusable components, pipes, directives
+│   ├── components/          # Shared UI components
+│   │   ├── charts/          # Chart visualization components
+│   │   ├── dashboard/       # Main dashboard view
+│   │   ├── login/           # Authentication form
+│   │   └── register/        # Registration form
+└── app.routes.ts           # Centralized routing configuration
+```
+
+### Key Services
+
+- **AuthService**: Handles user authentication and JWT token management
+- **TransactionService**: Manages financial transactions CRUD operations
+- **CategoryService**: Handles transaction categories
+- **UserCreateService**: User registration and profile management
+
+### Design Patterns
+
+- **Dependency Injection**: Angular's built-in DI system for loose coupling
+- **Reactive Programming**: RxJS observables for async operations
+- **Component-Based Architecture**: Reusable, self-contained UI components
+- **Interface-Driven Development**: Strong typing with TypeScript interfaces
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository and navigate to the project directory
+
+2. Install dependencies:
 ```bash
+npm install
+```
+
+### Development Server
+
+Start the local development server:
+```bash
+npm start
+# or
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The application will automatically reload on file changes.
 
-## Code scaffolding
+### Build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+Production build with optimizations:
 ```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
+npm run build
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output will be in the `dist/` directory.
 
-## Running unit tests
+### Testing
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
+Run unit tests with Vitest:
 ```bash
+npm test
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+### Development with watch mode:
 ```bash
-ng e2e
+npm run watch
+ng build --watch --configuration development
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Available Routes
 
-## Additional Resources
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/` | Redirects to `/login` | Default landing page |
+| `/login` | Login | User authentication |
+| `/register` | Register | New user registration |
+| `/dashboard` | Dashboard | Main financial dashboard with charts |
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
