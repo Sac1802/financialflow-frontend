@@ -33,6 +33,7 @@ export class BarChart implements OnInit {
   public getTransactions(): void {
     this.service.getTranasctions().subscribe({
       next: (data) => {
+        console.log('Transactions received', data);
         this.listTransactions.set(data);
         this.processDataForChart();
       },

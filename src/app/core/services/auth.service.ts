@@ -24,7 +24,10 @@ export class AuthService {
       .post(
         `${environment.apiUrl}/api/auth/login`,
         data,
-        { responseType: 'text' },
+        { 
+          responseType: 'text',
+          headers: { 'Content-Type': 'application/json' }
+        },
       )
       .pipe(
         tap((token) => {
