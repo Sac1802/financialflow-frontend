@@ -5,37 +5,92 @@
             <h1 class="meni-title">Finanzas Personales</h1>
         </div>
         <div class="button-transaction-add">
-            <button mat-icon-button>
+            <button mat-flat-button>
                 <mat-icon>add</mat-icon>
                 Nueva Transacción
             </button>
         </div>
         <div class="menu-user">
-            <mat-icon class="user-icon">account_circle</mat-icon>
+            <div class="user-avatar">A</div>
+            <div class="user-info">
+                <span class="user-name">acostasaid637</span>
+                <span class="user-email">acostasaid637&#64;gmail.com</span>
+            </div>
+            <mat-icon>expand_more</mat-icon>
         </div>
-
-
     </nav>
 </header>
 
 <main class="main-container">
     <div class="balance-container">
-        <h2>Ganado {{ money_earned() }}</h2>
-        <h2>Gastado {{ money_spent() }}</h2>
-        <h2>Balance total {{ balance() }}</h2>
-    </div>
-    <div class="dashboard-chart">
-        <app-bar-chart></app-bar-chart>
-        <app-pie-chart></app-pie-chart>
-    </div>
-    <div class="history_transactions">
-        <h2>Historial de Transacciones</h2>
-        @for(transaction of transactions; track $index) {
-            <div class="transaction">
-                <h3>{{ transaction.description }}</h3>
-                <p>{{ transaction.amount }}</p>
+        <div class="balance-card income">
+            <div class="balance-label">
+                <span>Ingresos</span>
+                <mat-icon class="balance-icon">trending_up</mat-icon>
             </div>
-        }
+            <h2 class="balance-amount">${{ money_earned() | number:'1.2-2' }}</h2>
+        </div>
+        <div class="balance-card expense">
+            <div class="balance-label">
+                <span>Gastos</span>
+                <mat-icon class="balance-icon">trending_down</mat-icon>
+            </div>
+            <h2 class="balance-amount">${{ money_spent() | number:'1.2-2' }}</h2>
+        </div>
+        <div class="balance-card total">
+            <div class="balance-label">
+                <span>Balance</span>
+                <mat-icon class="balance-icon">account_balance_wallet</mat-icon>
+            </div>
+            <h2 class="balance-amount">${{ balance() | number:'1.2-2' }}</h2>
+        </div>
+    </div>
+    
+    <div class="dashboard-chart">
+        <div class="chart-card">
+            <h3 class="chart-title">Ingresos vs Gastos</h3>
+            <div class="chart-container">
+                <app-bar-chart></app-bar-chart>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3 class="chart-title">Gastos por Categoría</h3>
+            <div class="chart-container">
+                <app-pie-chart (categoriesLoaded)="onCategoriesLoaded($event)"></app-pie-chart>
+            </div>
+        </div>
+    </div>
+    
+    <div class="history-section">
+        <h2 class="history-title">Historial de Transacciones</h2>
+        <div class="transactions-list">
+            @for(transaction of transactions; track $index) {
+                <div class="transaction-item">
+                    <div class="transaction-left">
+                        <div class="transaction-icon" [class.income]="transaction.transactionType === 'INCOME'" [class.expense]="transaction.transactionType === 'EXPENSE'">
+                            <mat-icon>{{ transaction.transactionType === 'INCOME' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                        </div>
+                        <div class="transaction-info">
+                            <h4>{{ transaction.description }}</h4>
+                            <div class="transaction-meta">
+                                <span>{{ transaction.date | date:'d \'de\' MMMM \'de\' y':'es' }}</span>
+                                @for(category of categoriesData; track $index) {
+                                    @if(category.idCategory === transaction.category) {
+                                        <span class="category-badge">{{ category.nameCategory }}</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="transaction-right">
+                        <span class="transaction-amount" [class.income]="transaction.transactionType === 'INCOME'" [class.expense]="transaction.transactionType === 'EXPENSE'">
+                            {{ transaction.transactionType === 'INCOME' ? '+' : '-' }}${{ transaction.amount | number:'1.2-2' }}
+                        </span>
+                        <mat-icon class="delete-btn">delete_outline</mat-icon>
+                    </div>
+                </div>
+            }
+        </div>
     </div>
 </main>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, Output, inject, output, signal } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { CategoryAmounts } from '../../../../core/interfaces/category-amounts.interface';
@@ -14,9 +14,22 @@ export class PieChart implements OnInit {
   private service = inject(CategoryService);
   listCategories = signal<CategoryAmounts[]>([]);
 
+  categoriesLoaded = output<CategoryAmounts[]>();
+
   public pieChartType: ChartType = 'pie';
   public pieChartOption: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 1,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          boxWidth: 12,
+          font: { size: 11 }
+        }
+      }
+    }
   };
 
   public pieChartData: ChartData<'pie'> = {
@@ -33,7 +46,7 @@ export class PieChart implements OnInit {
       next: (data) => {
         this.listCategories.set(data);
         this.processDataForChart();
-        console.log(data);
+        this.categoriesLoaded.emit(data);
       },
       error: (error) => {
         console.error('Error al obtener categorias', error);
