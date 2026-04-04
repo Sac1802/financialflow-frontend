@@ -4,13 +4,15 @@ import { PieChart } from '../charts/pie-chart/pie-chart';
 import { MatIconModule } from '@angular/material/icon';
 import { TransactionService } from '../../../core/services/transaction.service';
 import { Transaction } from '../../../core/interfaces/transaction.interface';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { CategoryAmounts } from '../../../core/interfaces/category-amounts.interface';
 
 @Component({
   selector: 'app-dashboard',
   imports: [BarChart, PieChart, MatIconModule, CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
+  providers: [DatePipe]
 })
 export class Dashboard implements OnInit {
   private transactionService = inject(TransactionService);
@@ -19,6 +21,7 @@ export class Dashboard implements OnInit {
   balance = signal<number>(0);
   
   transactions: Transaction[] = [];
+  categoriesData: CategoryAmounts[] = [];
   
   ngOnInit(): void {
     this.loadTransactions();
@@ -37,5 +40,10 @@ export class Dashboard implements OnInit {
         console.error('Error loading transactions:', error);
       }
     });
+  }
+
+  onCategoriesLoaded(data: CategoryAmounts[]) {
+    this.categoriesData = data;
+    
   }
 }
