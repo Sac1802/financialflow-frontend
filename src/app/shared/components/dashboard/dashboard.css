@@ -39,6 +39,7 @@
 }
 
 .button-transaction-add button {
+  flex-direction: row;
   background: #2563eb;
   color: white;
   border-radius: 8px;
@@ -149,7 +150,6 @@
   margin: 0;
 }
 
-/* Charts Section */
 .dashboard-chart {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

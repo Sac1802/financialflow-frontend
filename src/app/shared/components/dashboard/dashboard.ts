@@ -2,14 +2,17 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { BarChart } from '../charts/bar-chart/bar-chart';
 import { PieChart } from '../charts/pie-chart/pie-chart';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TransactionService } from '../../../core/services/transaction.service';
 import { Transaction } from '../../../core/interfaces/transaction.interface';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CategoryAmounts } from '../../../core/interfaces/category-amounts.interface';
+import { SaveCategory } from '../save-category/save-category';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BarChart, PieChart, MatIconModule, CommonModule],
+  imports: [BarChart, PieChart, MatIconModule, MatButtonModule, MatDialogModule, CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
   providers: [DatePipe]
@@ -19,6 +22,7 @@ export class Dashboard implements OnInit {
   money_earned = signal<number>(0);
   money_spent = signal<number>(0);
   balance = signal<number>(0);
+  private dialog = inject(MatDialog);
   
   transactions: Transaction[] = [];
   categoriesData: CategoryAmounts[] = [];
@@ -45,5 +49,13 @@ export class Dashboard implements OnInit {
   onCategoriesLoaded(data: CategoryAmounts[]) {
     this.categoriesData = data;
     
+  }
+  
+  openSaveCategory() {
+    this.dialog.open(SaveCategory, {
+      width: '500px',
+      disableClose: false,
+      backdropClass: 'custom-backdrop'
+    });
   }
 }
