@@ -18,4 +18,13 @@ export class TransactionService {
       }),
     );
   }
+
+  saveTransaction(transaction: Transaction): Observable<Transaction>{
+    return this.http.post<Transaction>(`${environment.apiUrl}/api/transaction`, transaction).pipe(
+      catchError((error) => {
+        console.error('Error saving transaction', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

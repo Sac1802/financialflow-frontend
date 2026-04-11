@@ -4,14 +4,15 @@ import { AuthService } from '../services/auth.service';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const token = localStorage.getItem(authService.TOKEN);
+  const rawToken = localStorage.getItem(authService.TOKEN);
+  const token = rawToken?.trim();
 
   // Skip auth header for public endpoints
   if (req.url.includes('/api/auth/login') || req.url.includes('/api/user')) {
     return next(req);
   }
 
-  if (token && token !== 'null' && token !== '') {
+  if (token && token !== 'null' && token !== 'undefined' && token !== '""' && token !== '') {
     const cloned = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,

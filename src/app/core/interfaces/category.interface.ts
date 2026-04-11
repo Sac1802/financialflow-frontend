@@ -1,4 +1,4 @@
 export interface Category{
     name: string,
-    TransactionType: string;
+    transactionType: string;
 }
