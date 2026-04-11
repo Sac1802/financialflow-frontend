@@ -9,6 +9,7 @@ import { Transaction } from '../../../core/interfaces/transaction.interface';
 import { CommonModule, DatePipe } from '@angular/common';
 import { CategoryAmounts } from '../../../core/interfaces/category-amounts.interface';
 import { SaveCategory } from '../save-category/save-category';
+import { SaveTransaction } from '../save-transaction/save-transaction';
 
 @Component({
   selector: 'app-dashboard',
@@ -53,6 +54,14 @@ export class Dashboard implements OnInit {
   
   openSaveCategory() {
     this.dialog.open(SaveCategory, {
+      width: '500px',
+      disableClose: false,
+      backdropClass: 'custom-backdrop'
+    });
+  }
+
+  openSaveTransaction() {
+    this.dialog.open(SaveTransaction, {
       width: '500px',
       disableClose: false,
       backdropClass: 'custom-backdrop'

@@ -44,25 +44,38 @@ export class BarChart implements OnInit {
   }
 
   private processDataForChart(): void {
-    const totalByMonth = new Map<string, number>();
+    const incomeByMonth = new Map<string, number>();
+    const expenseByMonth = new Map<string, number>();
     const monthNames = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
 
     this.listTransactions().forEach((item) => {
-      const dateObj = new Date(item.date); 
+      const dateObj = new Date(item.date);
       const month = monthNames[dateObj.getMonth()];
       const amount = item.amount;
-      
-      const currentTotal = totalByMonth.get(month) || 0;
-      totalByMonth.set(month, currentTotal + amount);
+
+      if (item.transactionType === 'INCOME') {
+        const current = incomeByMonth.get(month) || 0;
+        incomeByMonth.set(month, current + amount);
+      } else if (item.transactionType === 'EXPENSE') {
+        const current = expenseByMonth.get(month) || 0;
+        expenseByMonth.set(month, current + amount);
+      }
     });
 
+    const allMonths = Array.from(new Set([...incomeByMonth.keys(), ...expenseByMonth.keys()]));
+
     this.barChartData = {
-      labels: Array.from(totalByMonth.keys()),
+      labels: allMonths,
       datasets: [
-        { 
-          data: Array.from(totalByMonth.values()), 
-          label: 'Total por Mes',
-          backgroundColor: '#42A5F5' 
+        {
+          data: allMonths.map(m => incomeByMonth.get(m) || 0),
+          label: 'Ingresos',
+          backgroundColor: '#66BB6A'
+        },
+        {
+          data: allMonths.map(m => expenseByMonth.get(m) || 0),
+          label: 'Gastos',
+          backgroundColor: '#EF5350'
         }
       ]
     };

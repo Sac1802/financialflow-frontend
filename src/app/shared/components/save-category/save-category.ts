@@ -19,7 +19,7 @@ export class SaveCategory {
   constructor(){
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      TransactionType: ['', [Validators.required]]
+      transactionType: ['', [Validators.required]]
     });
   }
 
@@ -30,9 +30,9 @@ export class SaveCategory {
       return;
     }
 
-    const { name, TransactionType } = this.categoryForm.value;
+    const { name, transactionType } = this.categoryForm.value;
 
-    this.service.saveNewCategory({ name, TransactionType }).subscribe({
+    this.service.saveNewCategory({ name, transactionType }).subscribe({
       next: (data) => {
         console.log('Category created');
         this.dialogRef.close(true);
