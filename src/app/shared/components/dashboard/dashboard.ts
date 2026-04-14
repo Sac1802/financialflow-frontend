@@ -10,6 +10,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { CategoryAmounts } from '../../../core/interfaces/category-amounts.interface';
 import { SaveCategory } from '../save-category/save-category';
 import { SaveTransaction } from '../save-transaction/save-transaction';
+import { UserService } from '../../../core/services/user.service';
+import { UserInfo } from '../../../core/interfaces/user.info.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,12 +26,15 @@ export class Dashboard implements OnInit {
   money_spent = signal<number>(0);
   balance = signal<number>(0);
   private dialog = inject(MatDialog);
+  private userService = inject(UserService);
+  userInfo = signal<UserInfo>({});
   
   transactions: Transaction[] = [];
   categoriesData: CategoryAmounts[] = [];
   
   ngOnInit(): void {
     this.loadTransactions();
+    this.getUserInfo();
   }
   
   loadTransactions(): void {
@@ -65,6 +70,17 @@ export class Dashboard implements OnInit {
       width: '500px',
       disableClose: false,
       backdropClass: 'custom-backdrop'
+    });
+  }
+
+  getUserInfo() {
+    this.userService.getUserInfo().subscribe({
+      next: (data) => {
+        this.userInfo.set(data);
+      },
+      error: (error) => {
+        console.error('Error loading user info:', error);
+      }
     });
   }
 }

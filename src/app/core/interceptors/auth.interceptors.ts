@@ -8,7 +8,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const token = rawToken?.trim();
 
   // Skip auth header for public endpoints
-  if (req.url.includes('/api/auth/login') || req.url.includes('/api/user')) {
+  if (req.url.includes('/api/auth/login') || req.url.endsWith('/api/user')) {
     return next(req);
   }
 
