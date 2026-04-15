@@ -12,6 +12,7 @@ import { SaveCategory } from '../save-category/save-category';
 import { SaveTransaction } from '../save-transaction/save-transaction';
 import { UserService } from '../../../core/services/user.service';
 import { UserInfo } from '../../../core/interfaces/user.info.interface';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,7 @@ export class Dashboard implements OnInit {
   private dialog = inject(MatDialog);
   private userService = inject(UserService);
   userInfo = signal<UserInfo>({});
+  private authService = inject(AuthService);
   
   transactions: Transaction[] = [];
   categoriesData: CategoryAmounts[] = [];
@@ -57,7 +59,7 @@ export class Dashboard implements OnInit {
     
   }
   
-  openSaveCategory() {
+  openSaveCategory(): void {
     this.dialog.open(SaveCategory, {
       width: '500px',
       disableClose: false,
@@ -65,7 +67,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  openSaveTransaction() {
+  openSaveTransaction(): void {
     this.dialog.open(SaveTransaction, {
       width: '500px',
       disableClose: false,
@@ -73,7 +75,7 @@ export class Dashboard implements OnInit {
     });
   }
 
-  getUserInfo() {
+  getUserInfo(): void {
     this.userService.getUserInfo().subscribe({
       next: (data) => {
         this.userInfo.set(data);
@@ -82,5 +84,9 @@ export class Dashboard implements OnInit {
         console.error('Error loading user info:', error);
       }
     });
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }
