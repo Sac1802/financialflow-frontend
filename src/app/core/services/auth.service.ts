@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { userLogin } from '../interfaces/user.login.interface';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   isLoggedIn = signal(false);
   readonly TOKEN = 'access_token';
 
@@ -44,5 +46,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem(this.TOKEN);
     this.isLoggedIn.set(false);
+    this.router.navigate(['/login']);
   }
 }
