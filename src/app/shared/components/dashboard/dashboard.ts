@@ -4,6 +4,7 @@ import { PieChart } from '../charts/pie-chart/pie-chart';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 import { TransactionService } from '../../../core/services/transaction.service';
 import { Transaction } from '../../../core/interfaces/transaction.interface';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -16,7 +17,7 @@ import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [BarChart, PieChart, MatIconModule, MatButtonModule, MatDialogModule, CommonModule],
+  imports: [BarChart, PieChart, MatIconModule, MatButtonModule, MatDialogModule, MatMenuModule, CommonModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
   providers: [DatePipe]
@@ -88,5 +89,16 @@ export class Dashboard implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  deleteTransaction(id: number): void {
+    this.transactionService.deleteTransaction(id).subscribe({
+      next: () => {
+        this.loadTransactions();
+      },
+      error: (error) => {
+        console.error('Error deleting transaction:', error);
+      }
+    });
   }
 }

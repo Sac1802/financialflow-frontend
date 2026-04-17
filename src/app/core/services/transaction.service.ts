@@ -27,4 +27,13 @@ export class TransactionService {
       })
     );
   }
+
+  deleteTransaction(id: number): Observable<number>{
+    return this.http.delete<number>(`${environment.apiUrl}/api/transaction/${id}`).pipe(
+      catchError((error) => {
+        console.error('Error deleting transaction', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }
