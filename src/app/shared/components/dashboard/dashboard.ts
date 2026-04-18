@@ -14,6 +14,8 @@ import { SaveTransaction } from '../save-transaction/save-transaction';
 import { UserService } from '../../../core/services/user.service';
 import { UserInfo } from '../../../core/interfaces/user.info.interface';
 import { AuthService } from '../../../core/services/auth.service';
+import { GeneratePdfService } from '../../../core/services/generate-pdf.service';
+import { GenerateExcelService } from '../../../core/services/generate-excel.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +33,8 @@ export class Dashboard implements OnInit {
   private userService = inject(UserService);
   userInfo = signal<UserInfo>({});
   private authService = inject(AuthService);
+  private pdfService = inject(GeneratePdfService);
+  private excelService = inject(GenerateExcelService);
   
   transactions: Transaction[] = [];
   categoriesData: CategoryAmounts[] = [];
@@ -100,5 +104,13 @@ export class Dashboard implements OnInit {
         console.error('Error deleting transaction:', error);
       }
     });
+  }
+
+  generateExcel(): void {
+    this.excelService.generateExcel(new Date(), new Date());
+  }
+
+  generatePdf(): void {
+    this.pdfService.generatePdf(new Date(), new Date());
   }
 }
