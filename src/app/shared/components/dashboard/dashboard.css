@@ -162,7 +162,7 @@
   border-radius: 16px;
   padding: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  height: 220px;
+  height: 320px;
   display: flex;
   flex-direction: column;
 }
@@ -176,8 +176,8 @@
 }
 
 .chart-container app-pie-chart {
-  max-width: 160px;
-  max-height: 160px;
+  max-width: 220px;
+  max-height: 220px;
 }
 
 .chart-container app-bar-chart {
@@ -308,22 +308,50 @@
   color: #ef4444;
 }
 
+/* Floating Download Button */
+.fab-download-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.fab-download-btn:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+}
+
+.fab-download-btn mat-icon {
+  margin-right: 8px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .balance-container {
     grid-template-columns: 1fr;
   }
-  
+
   .dashboard-chart {
     grid-template-columns: 1fr;
   }
-  
+
   .menu {
     flex-wrap: wrap;
     gap: 12px;
   }
-  
+
   .user-info {
     display: none;
+  }
+
+  .fab-download-btn {
+    bottom: 16px;
+    right: 16px;
+    font-size: 14px;
   }
 }

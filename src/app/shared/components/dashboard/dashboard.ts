@@ -16,6 +16,7 @@ import { UserInfo } from '../../../core/interfaces/user.info.interface';
 import { AuthService } from '../../../core/services/auth.service';
 import { GeneratePdfService } from '../../../core/services/generate-pdf.service';
 import { GenerateExcelService } from '../../../core/services/generate-excel.service';
+import { FormFiles } from '../form-files/form-files';
 
 @Component({
   selector: 'app-dashboard',
@@ -107,10 +108,18 @@ export class Dashboard implements OnInit {
   }
 
   generateExcel(): void {
-    this.excelService.generateExcel(new Date(), new Date());
+    this.dialog.open(FormFiles, {
+      width: '500px',
+      disableClose: false,
+      backdropClass: 'custom-backdrop'
+    });
   }
 
   generatePdf(): void {
-    this.pdfService.generatePdf(new Date(), new Date());
+    this.dialog.open(FormFiles, {
+      width: '500px',
+      disableClose: false,
+      backdropClass: 'custom-backdrop'
+    });
   }
 }

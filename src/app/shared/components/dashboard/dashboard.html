@@ -108,17 +108,9 @@
         </div>
     </div>
 
-    <div class="button-transaction-add">
-            <button mat-flat-button (click)="generateExcel()">
-                <mat-icon>download</mat-icon>
-                Generar Excel
-            </button>
-        </div>
-        <div class="button-transaction-add">
-            <button mat-flat-button (click)="generatePdf()">
-                <mat-icon>picture_as_pdf</mat-icon>
-                Generar PDF
-            </button>
-        </div>
+    <button class="fab-download-btn" mat-fab extended color="accent" (click)="generateExcel()">
+        <mat-icon>file_download</mat-icon>
+        Descargar Reporte
+    </button>
 </main>
 
