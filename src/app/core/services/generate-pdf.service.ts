@@ -10,11 +10,15 @@ import { catchError } from "rxjs";
 export class GeneratePdfService {
     private http = inject(HttpClient);
 
-    generatePdf(startDate: Date, endDate: Date): void{
-        this.http.post(`${environment.apiUrl}/api/pdf/generate`, {
-            startDate,
-            endDate
-        }).pipe(
+    private formatDate(date: Date): string {
+        return date.toISOString().split('T')[0];
+    }
+
+    generatePdf(startDate: Date, endDate: Date){
+        return this.http.post(`${environment.apiUrl}/api/pdf/generate`, {
+            starDate: this.formatDate(startDate),
+            endDate: this.formatDate(endDate)
+        }, { responseType: 'blob' }).pipe(
             catchError((error) => {
                 console.error('Error generating PDF:', error);
                 throw error;
